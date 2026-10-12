@@ -2,5 +2,7 @@
   "name": "เสน่ห์วัฒนธรรมไทย - แหล่งเรียนรู้วัฒนธรรมไทยสำหรับเยาวชน",
   "description": "เว็บไซต์เพื่อการศึกษาเรื่องเสน่ห์วัฒนธรรมไทย ครอบคลุมประเพณี อาหาร การแต่งกาย มารยาท และแบบทดสอบความรู้ 5 ข้อ พร้อมเฉลย",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

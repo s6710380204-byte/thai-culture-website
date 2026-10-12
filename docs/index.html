@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เสน่ห์วัฒนธรรมไทย | แหล่งเรียนรู้วัฒนธรรมไทยสำหรับนักเรียนและนักศึกษา</title>
+  <meta name="description" content="เว็บไซต์เพื่อการศึกษาเรื่องเสน่ห์วัฒนธรรมไทย ประเพณี อาหาร การแต่งกาย มารยาทไทย และแบบทดสอบ 5 ข้อ พร้อมเฉลย">
+  
+  <!-- Google Fonts: Prompt & Sarabun -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Sarabun', 'sans-serif'],
+            heading: ['Prompt', 'sans-serif']
+          },
+          colors: {
+            thaiGold: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+              800: '#92400e',
+              900: '#78350f'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #fdfbf7;
+      color: #292524;
+    }
+    h1, h2, h3, h4, h5, h6, .font-heading {
+      font-family: 'Prompt', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #certificate-printable-area, #certificate-printable-area * {
+        visibility: visible;
+      }
+      #certificate-printable-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 20px;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#fdfbf7] text-stone-900 antialiased">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-amber-100 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20 gap-4">
+        
+        <!-- Brand Wordmark -->
+        <a href="javascript:void(0)" onclick="switchTab('home')" class="flex items-center gap-3 group focus:outline-none">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-600 to-amber-700 flex items-center justify-center text-white shadow-md shadow-amber-600/20 group-hover:scale-105 transition-transform">
+            <svg class="w-5 h-5 text-amber-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
+          </div>
+          <div>
+            <span class="font-heading text-xl sm:text-2xl font-bold tracking-tight text-stone-900 group-hover:text-amber-800 transition-colors whitespace-nowrap block">
+              เสน่ห์วัฒนธรรมไทย
+            </span>
+            <span class="text-[11px] text-amber-800/80 font-medium block -mt-1 hidden sm:block">
+              แหล่งเรียนรู้สำหรับนักเรียนและนักศึกษา
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center gap-1 xl:gap-2">
+          <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-3.5 py-2 text-sm font-semibold rounded-lg bg-amber-100 text-amber-900">หน้าแรก</button>
+          <button onclick="switchTab('traditions')" id="nav-traditions" class="nav-btn px-3.5 py-2 text-sm font-medium rounded-lg text-stone-600 hover:text-stone-900 hover:bg-stone-100">ประเพณีไทย</button>
+          <button onclick="switchTab('cuisine')" id="nav-cuisine" class="nav-btn px-3.5 py-2 text-sm font-medium rounded-lg text-stone-600 hover:text-stone-900 hover:bg-stone-100">อาหารไทย</button>
+          <button onclick="switchTab('costumes')" id="nav-costumes" class="nav-btn px-3.5 py-2 text-sm font-medium rounded-lg text-stone-600 hover:text-stone-900 hover:bg-stone-100">การแต่งกายไทย</button>
+          <button onclick="switchTab('etiquette')" id="nav-etiquette" class="nav-btn px-3.5 py-2 text-sm font-medium rounded-lg text-stone-600 hover:text-stone-900 hover:bg-stone-100">มารยาทและเอกลักษณ์</button>
+          <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-btn px-3.5 py-2 text-sm font-medium rounded-lg text-stone-600 hover:text-stone-900 hover:bg-stone-100">แบบทดสอบ 5 ข้อ</button>
+        </nav>
+
+        <!-- CTA & Mobile Toggle -->
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+          <button onclick="switchTab('quiz')" class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white text-xs sm:text-sm font-medium rounded-lg shadow-sm transition-all whitespace-nowrap">
+            <svg class="w-4 h-4 text-amber-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V4a2 2 0 10-2 2h2m0 13a4 4 0 01-4-4v-1a4 4 0 018 0v1a4 4 0 01-4 4z" />
+            </svg>
+            <span>ทำแบบทดสอบ</span>
+          </button>
+
+          <!-- Mobile Toggle Button -->
+          <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-stone-600 hover:text-stone-900 rounded-lg hover:bg-amber-50">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-amber-200 px-4 pt-2 pb-6 space-y-1 shadow-lg">
+      <p class="px-3 py-2 text-xs font-semibold text-amber-800 uppercase tracking-wider">เลือกหัวข้อเรียนรู้</p>
+      <button onclick="switchTab('home')" class="w-full text-left px-4 py-3 rounded-xl font-medium text-stone-700 hover:bg-amber-50">หน้าแรก</button>
+      <button onclick="switchTab('traditions')" class="w-full text-left px-4 py-3 rounded-xl font-medium text-stone-700 hover:bg-amber-50">ประเพณีไทย</button>
+      <button onclick="switchTab('cuisine')" class="w-full text-left px-4 py-3 rounded-xl font-medium text-stone-700 hover:bg-amber-50">อาหารไทย</button>
+      <button onclick="switchTab('costumes')" class="w-full text-left px-4 py-3 rounded-xl font-medium text-stone-700 hover:bg-amber-50">การแต่งกายไทย</button>
+      <button onclick="switchTab('etiquette')" class="w-full text-left px-4 py-3 rounded-xl font-medium text-stone-700 hover:bg-amber-50">มารยาทและเอกลักษณ์</button>
+      <button onclick="switchTab('quiz')" class="w-full text-left px-4 py-3 rounded-xl font-medium text-amber-800 font-bold bg-amber-50">แบบทดสอบ 5 ข้อ พร้อมเฉลย</button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-1 pb-20 lg:pb-12 pt-4 sm:pt-6">
+
+    <!-- 1. HOME TAB -->
+    <section id="tab-home" class="tab-content active max-w-6xl mx-auto px-4 sm:px-6 space-y-16 sm:space-y-20">
+      
+      <!-- Hero Section -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-amber-950 via-stone-900 to-stone-950 text-white shadow-xl p-8 sm:p-16 lg:p-20 text-center flex flex-col items-center">
+        
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 backdrop-blur-md border border-amber-400/30 text-amber-200 text-xs sm:text-sm font-medium mb-6">
+          <span>✨ เว็บไซต์เพื่อการศึกษาสำหรับนักเรียนและนักศึกษา</span>
+        </div>
+
+        <h1 class="font-heading text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6 max-w-3xl leading-tight">
+          เสน่ห์วัฒนธรรมไทย
+          <span class="block text-xl sm:text-3xl lg:text-4xl font-normal text-amber-200 mt-2">
+            มรดกภูมิปัญญาอันล้ำค่า สู่วิถีชีวิตคนรุ่นใหม่
+          </span>
+        </h1>
+
+        <p class="text-base sm:text-lg text-stone-300 max-w-2xl mb-10 leading-relaxed font-light">
+          ร่วมเปิดประตูสู่อารยธรรมแห่งสยาม ค้นพบคุณค่าที่ซ่อนอยู่ในประเพณีโบราณ 
+          รสสัมผัสแห่งอาหารอันลือเลื่อง ความสง่างามของเครื่องแต่งกาย 
+          และมารยาทอันอ่อนช้อยที่เป็นเอกลักษณ์ดึงดูดใจผู้คนทั่วโลก
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <button onclick="switchTab('traditions')" class="px-6 py-3.5 bg-amber-600 hover:bg-amber-500 text-white font-medium rounded-xl shadow-lg transition-all text-sm sm:text-base">
+            🧭 เริ่มสำรวจวัฒนธรรมไทย
+          </button>
+          <button onclick="switchTab('quiz')" class="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white font-medium rounded-xl border border-white/20 transition-all text-sm sm:text-base">
+            🏆 ทดสอบความรู้ 5 ข้อ
+          </button>
+        </div>
+
+        <!-- Quick Stats Strip -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-16 pt-10 border-t border-white/10 w-full max-w-3xl">
+          <div class="text-center">
+            <span class="block text-2xl sm:text-3xl font-bold text-amber-300 font-heading">UNESCO</span>
+            <span class="text-xs text-stone-400 mt-1 block">มรดกภูมิปัญญาโลก</span>
+          </div>
+          <div class="text-center">
+            <span class="block text-2xl sm:text-3xl font-bold text-amber-300 font-heading">8 แบบ</span>
+            <span class="text-xs text-stone-400 mt-1 block">ชุดไทยพระราชนิยม</span>
+          </div>
+          <div class="text-center">
+            <span class="block text-2xl sm:text-3xl font-bold text-amber-300 font-heading">3 ระดับ</span>
+            <span class="text-xs text-stone-400 mt-1 block">มารยาทการไหว้ไทย</span>
+          </div>
+          <div class="text-center">
+            <span class="block text-2xl sm:text-3xl font-bold text-amber-300 font-heading">100%</span>
+            <span class="text-xs text-stone-400 mt-1 block">ซอฟต์พาวเวอร์ไทย</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 Pillars -->
+      <div>
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <span class="text-xs font-semibold text-amber-700 tracking-wider uppercase block mb-1">เนื้อหาการศึกษา 4 มิติ</span>
+          <h2 class="font-heading text-2xl sm:text-3xl font-bold text-stone-900">เจาะลึก 4 เสาหลักแห่งอัตลักษณ์ไทย</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div onclick="switchTab('traditions')" class="bg-white rounded-2xl p-6 border border-stone-200 hover:border-amber-400 hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center text-xl mb-4">🌊</div>
+              <h3 class="font-heading text-lg font-bold text-stone-900 mb-2">ประเพณีไทย</h3>
+              <p class="text-stone-600 text-xs sm:text-sm leading-relaxed">สงกรานต์ ลอยกระทง แห่เทียนพรรษา และบุญบั้งไฟ มรดกแห่งศรัทธาและความสามัคคี</p>
+            </div>
+            <div class="mt-6 pt-3 border-t border-stone-100 text-xs font-semibold text-sky-700">ศึกษาประเพณี →</div>
+          </div>
+
+          <div onclick="switchTab('cuisine')" class="bg-white rounded-2xl p-6 border border-stone-200 hover:border-amber-400 hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-xl mb-4">🍲</div>
+              <h3 class="font-heading text-lg font-bold text-stone-900 mb-2">อาหารไทยเลื่องชื่อ</h3>
+              <p class="text-stone-600 text-xs sm:text-sm leading-relaxed">ต้มยำกุ้ง ผัดไทย ส้มตำ และมัสมั่นอันดับหนึ่งของโลก ศาสตร์แห่งอาหารเป็นยา</p>
+            </div>
+            <div class="mt-6 pt-3 border-t border-stone-100 text-xs font-semibold text-amber-700">สำรวจรสชาติไทย →</div>
+          </div>
+
+          <div onclick="switchTab('costumes')" class="bg-white rounded-2xl p-6 border border-stone-200 hover:border-amber-400 hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-700 flex items-center justify-center text-xl mb-4">👘</div>
+              <h3 class="font-heading text-lg font-bold text-stone-900 mb-2">การแต่งกายไทย</h3>
+              <p class="text-stone-600 text-xs sm:text-sm leading-relaxed">ชุดไทยพระราชนิยม 8 แบบ ผ้าไหมมัดหมี่ สไบทอง และลวดลายทอโบราณ</p>
+            </div>
+            <div class="mt-6 pt-3 border-t border-stone-100 text-xs font-semibold text-rose-700">ชมเครื่องแต่งกาย →</div>
+          </div>
+
+          <div onclick="switchTab('etiquette')" class="bg-white rounded-2xl p-6 border border-stone-200 hover:border-amber-400 hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl mb-4">🙏</div>
+              <h3 class="font-heading text-lg font-bold text-stone-900 mb-2">มารยาทและเอกลักษณ์</h3>
+              <p class="text-stone-600 text-xs sm:text-sm leading-relaxed">การไหว้ 3 ระดับ การกราบเบญจางคประดิษฐ์ และรอยยิ้มสยามอันอ่อนน้อม</p>
+            </div>
+            <div class="mt-6 pt-3 border-t border-stone-100 text-xs font-semibold text-emerald-700">ฝึกฝนกิริยามารยาท →</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 2. TRADITIONS TAB -->
+    <section id="tab-traditions" class="tab-content max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-100 text-sky-800 text-xs font-semibold">🌊 บทเรียนที่ 1 : ประเพณีและเทศกาลไทย</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-stone-900">ประเพณีไทย สายใยแห่งศรัทธาและชุมชน</h2>
+        <p class="text-stone-600 text-sm sm:text-base">ประเพณีไทยสะท้อนความผูกพันของมนุษย์กับสายน้ำ ธรรมชาติ และความกตัญญูกตเวทิตา</p>
+      </div>
+
+      <!-- Feature Card: Songkran UNESCO -->
+      <div class="bg-gradient-to-r from-amber-900 to-stone-900 text-white rounded-3xl p-8 sm:p-12 shadow-lg">
+        <span class="text-xs font-semibold text-amber-300 uppercase tracking-widest block mb-2">⭐ มรดกภูมิปัญญาโลก UNESCO 2023</span>
+        <h3 class="font-heading text-2xl sm:text-3xl font-bold mb-4">ประเพณีสงกรานต์ในประเทศไทย (Songkran Festival)</h3>
+        <p class="text-stone-300 text-sm sm:text-base leading-relaxed mb-6">
+          วันขึ้นปีใหม่ไทยโบราณ (13-15 เมษายน) ที่มีแก่นแท้คือการแสดงความกตัญญูผ่านการสรงน้ำพระ รดน้ำดำหัวผู้ใหญ่ และใช้น้ำสะอาดเป็นสัญลักษณ์แห่งการชะล้างสิ่งไม่ดีและเริ่มต้นศักราชใหม่อย่างสดชื่น
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10 text-xs text-stone-300">
+          <div><strong class="text-white block">สรงน้ำพระ</strong> เพื่อความเป็นสิริมงคลในชีวิต</div>
+          <div><strong class="text-white block">รดน้ำดำหัว</strong> ขอพรผู้ใหญ่และแสดงความกตัญญู</div>
+          <div><strong class="text-white block">เล่นน้ำสุภาพ</strong> ไม่ใช้ความรุนแรง รักษากาลเทศะ</div>
+        </div>
+      </div>
+
+      <!-- Other Traditions Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 space-y-3">
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-amber-100 text-amber-900">วันเพ็ญเดือน 12</span>
+          <h4 class="font-heading text-xl font-bold text-stone-900">ประเพณีลอยกระทง (Loy Krathong)</h4>
+          <p class="text-stone-600 text-sm leading-relaxed">
+            ประเพณีขอขมาและขอบคุณ "พระแม่คงคา" สายน้ำที่หล่อเลี้ยงชีวิตมนุษย์ เยาวชนยุคใหม่รณรงค์ใช้กระทงจากวัสดุธรรมชาติ 100% หรือกระทงดิจิทัลเพื่อรักษาระบบนิเวศ
+          </p>
+        </div>
+
+        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 space-y-3">
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-sky-100 text-sky-900">วันเข้าพรรษา · ภาคอีสาน</span>
+          <h4 class="font-heading text-xl font-bold text-stone-900">ประเพณีแห่เทียนพรรษา (Candle Festival)</h4>
+          <p class="text-stone-600 text-sm leading-relaxed">
+            มหากาพย์แห่งพุทธศิลป์อีสาน โดยเฉพาะ จ.อุบลราชธานี ที่ช่างแกะสลักขี้ผึ้งสร้างสรรค์ลวดลายไทยวิจิตรอลังการเพื่อถวายเป็นพุทธบูชา สะท้อนพลังแห่งความสามัคคี
+          </p>
+        </div>
+
+        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 space-y-3">
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-rose-100 text-rose-900">ด่านซ้าย จ.เลย</span>
+          <h4 class="font-heading text-xl font-bold text-stone-900">ประเพณีผีตาโขน (Phi Ta Khon)</h4>
+          <p class="text-stone-600 text-sm leading-relaxed">
+            เทศกาลหน้ากากแฟนซีพื้นบ้านไทยที่ทำจากหวดนึ่งข้าวเหนียวและกาบมะพร้าว แต่งแต้มสีสันสดใส เชื่อมโยงกับมหาเวสสันดรชาดกและความสุขสนุกสนานของชุมชน
+          </p>
+        </div>
+
+        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 space-y-3">
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-900">พฤษภาคม · วิถีเกษตรกร</span>
+          <h4 class="font-heading text-xl font-bold text-stone-900">ประเพณีบุญบั้งไฟ (Rocket Festival)</h4>
+          <p class="text-stone-600 text-sm leading-relaxed">
+            พิธีกรรมจุดบั้งไฟบูชาพญาแถนเพื่อขอฝนตามฤดูกาลก่อนเริ่มหว่านไถ แสดงถึงภูมิปัญญาช่างเคมีดินประสิวโบราณและความผูกพันของชาวนากับผืนดิน
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. CUISINE TAB -->
+    <section id="tab-cuisine" class="tab-content max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-semibold">🍲 บทเรียนที่ 2 : อาหารไทยและศาสตร์สมุนไพร</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-stone-900">อาหารไทย มนต์เสน่ห์แห่งรสชาติและโอสถสาร</h2>
+        <p class="text-stone-600 text-sm sm:text-base">ศาสตร์แห่งสำรับไทยที่ผสมผสาน 5 รสชาติ (เปรี้ยว หวาน มัน เค็ม เผ็ด) ร่วมกับภูมิปัญญา "อาหารเป็นยา"</p>
+      </div>
+
+      <!-- Dishes Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs space-y-3">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-semibold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-md">ต้ม/แกง</span>
+            <span class="text-rose-600 font-medium">🌶️🌶️🌶️🌶️ ความเผ็ด 4/5</span>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-stone-900">ต้มยำกุ้ง (Tom Yum Goong)</h3>
+          <p class="text-stone-600 text-xs sm:text-sm leading-relaxed">ซุปรสเปรี้ยวเผ็ดจัดจ้าน สมุนไพร ข่า ตะไคร้ ใบมะกรูด พริกขี้หนู ช่วยขับลมและกระตุ้นการไหลเวียนโลหิต</p>
+          <div class="pt-3 border-t border-stone-100 text-xs text-stone-500">
+            <strong>สรรพคุณ:</strong> บรรเทาอาการหวัด คัดจมูก และเจริญอาหาร
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs space-y-3">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-semibold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-md">ผัด/ทอด</span>
+            <span class="text-stone-500 font-medium">🌶️🌶️ ความเผ็ด 2/5</span>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-stone-900">ผัดไทยกุ้งสด (Pad Thai)</h3>
+          <p class="text-stone-600 text-xs sm:text-sm leading-relaxed">ก๋วยเตี๋ยวผัดซอสมะขามเปียกเคี่ยวน้ำตาลปี๊บ กุ้งสด เต้าหู้เหลือง ถั่วลิสงคั่ว และใบกุยช่าย รสชาติกลมกล่อมเปรี้ยวอมหวาน</p>
+          <div class="pt-3 border-t border-stone-100 text-xs text-stone-500">
+            <strong>ประวัติ:</strong> ริเริ่มในยุคจอมพล ป. พิบูลสงคราม เพื่อสร้างเอกลักษณ์อาหารประจำชาติ
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs space-y-3">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-semibold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-md">ต้ม/แกง</span>
+            <span class="text-amber-700 font-bold">⭐ CNN World's #1</span>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-stone-900">แกงมัสมั่นไก่ (Massaman Curry)</h3>
+          <p class="text-stone-600 text-xs sm:text-sm leading-relaxed">แกงกะทิเครื่องเทศลูกกระวาน กานพลู อบเชย ยี่หร่า เคี่ยวเนื้อไก่นุ่มและมันฝรั่ง ได้รับการโหวตเป็นอาหารที่อร่อยที่สุดในโลก</p>
+          <div class="pt-3 border-t border-stone-100 text-xs text-stone-500">
+            <strong>วรรณคดี:</strong> ปรากฏในกาพย์เห่ชมเครื่องคาวหวาน รัชกาลที่ 2
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs space-y-3">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-semibold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-md">ยำ/ตำ</span>
+            <span class="text-rose-600 font-medium">🌶️🌶️🌶️ ความเผ็ด 3/5</span>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-stone-900">ส้มตำไทย (Som Tum)</h3>
+          <p class="text-stone-600 text-xs sm:text-sm leading-relaxed">เส้นมะละกอดิบตำคลุกเคล้าพริก กระเทียม ถั่วฝักยาว มะเขือเทศ ถั่วลิสง และกุ้งแห้ง รสเปรี้ยวนำหวานตาม สดชื่นและไฟเบอร์สูง</p>
+          <div class="pt-3 border-t border-stone-100 text-xs text-stone-500">
+            <strong>สรรพคุณ:</strong> เอนไซม์ปาเปนในมะละกอช่วยย่อยโปรตีน
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs space-y-3">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-semibold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-md">ของหวาน</span>
+            <span class="text-amber-600 font-medium">🥭 Soft Power โลก</span>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-stone-900">ข้าวเหนียวมะม่วง (Mango Sticky Rice)</h3>
+          <p class="text-stone-600 text-xs sm:text-sm leading-relaxed">ข้าวเหนียวมูนกะทิหอมใบเตย รสหวานมันเค็ม ทานคู่กับมะม่วงน้ำดอกไม้สุกสีทองรสหวานฉ่ำ โรยถั่วทองทอดกรอบ</p>
+          <div class="pt-3 border-t border-stone-100 text-xs text-stone-500">
+            <strong>เกร็ดน่ารู้:</strong> ขนมหวานไทยที่สร้างปรากฏการณ์ระดับนานาชาติ
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs space-y-3">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-semibold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-md">ต้ม/แกง</span>
+            <span class="text-rose-600 font-medium">🌶️🌶️🌶️ ความเผ็ด 3/5</span>
+          </div>
+          <h3 class="font-heading text-xl font-bold text-stone-900">แกงเขียวหวานไก่ (Green Curry)</h3>
+          <p class="text-stone-600 text-xs sm:text-sm leading-relaxed">แกงกะทิสีเขียวธรรมชาติจากพริกขี้หนูเขียวสด มะเขือเปราะ และใบโหระพากลิ่นหอมระเหย รสชาติละมุนกลมกล่อม</p>
+          <div class="pt-3 border-t border-stone-100 text-xs text-stone-500">
+            <strong>ที่มาของชื่อ:</strong> "เขียวหวาน" หมายถึงสีเขียวอ่อนนวลตา ไม่ได้แปลว่ารสหวานจัด
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. COSTUMES TAB -->
+    <section id="tab-costumes" class="tab-content max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-800 text-xs font-semibold">👘 บทเรียนที่ 3 : การแต่งกายและพัสตราภรณ์ไทย</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-stone-900">ชุดไทยพระราชนิยม ความสง่างามแห่งภูษาศิลป์</h2>
+        <p class="text-stone-600 text-sm sm:text-base">ชุดประจำชาติไทย 8 แบบหลักที่สมเด็จพระพันปีหลวงทรงริเริ่มสร้างสรรค์ เพื่อเป็นเอกลักษณ์สากลของสตรีไทย</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="bg-white rounded-2xl p-6 border border-stone-200 space-y-3">
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-rose-100 text-rose-900">เปิดไหล่หนึ่งข้าง · สไบปักทอง</span>
+          <h3 class="font-heading text-xl font-bold text-stone-900">ชุดไทยจักรี</h3>
+          <p class="text-stone-600 text-sm leading-relaxed">ห่มสไบเฉียงปักดิ้นทอง ชายสไบทอดกรอมพื้น ซิ่นยกทองจีบหน้านางมีชายพก คาดเข็มขัดทอง นิยมใช้ในพิธีมงคลสมรสและงานเลี้ยงค่ำ</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-stone-200 space-y-3">
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-amber-100 text-amber-900">ลำลอง · สวมใส่สบาย</span>
+          <h3 class="font-heading text-xl font-bold text-stone-900">ชุดไทยเรือนต้น</h3>
+          <p class="text-stone-600 text-sm leading-relaxed">เสื้อคอกลมไม่มีคอตั้ง ผ่าอกติดกระดุม 5 เม็ด แขนสามส่วน นุ่งกับผ้าซิ่นยาวป้ายหน้า เหมาะสำหรับงานบุญทั่วไปและพิธีไม่เป็นทางการ</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-stone-200 space-y-3">
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-stone-100 text-stone-900">ทางการเต็มยศ · มิดชิด</span>
+          <h3 class="font-heading text-xl font-bold text-stone-900">ชุดไทยบรมพิมาน</h3>
+          <p class="text-stone-600 text-sm leading-relaxed">เสื้อคอกลมตั้ง แขนยาวแนบเนื้อ ซิ่นจีบหน้านางมีชายพก คาดเข็มขัดทอง สำหรับงานพระราชพิธีและต้อนรับแขกบ้านแขกเมือง</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-stone-200 space-y-3">
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-rose-100 text-rose-900">หรูหรางานค่ำ · สไบทับเสื้อ</span>
+          <h3 class="font-heading text-xl font-bold text-stone-900">ชุดไทยศิวาลัย</h3>
+          <p class="text-stone-600 text-sm leading-relaxed">เสื้อแขนยาวคอตั้ง ห่มสไบปักทับตัวเสื้ออีกชั้นหนึ่ง นุ่งซิ่นจีบหน้านาง คาดเข็มขัดทอง หรูหราสำหรับงานกาล่าดินเนอร์และพิธีเต็มยศ</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-stone-200 space-y-3">
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-amber-100 text-amber-900">พิธีการกลางวัน · สุภาพ</span>
+          <h3 class="font-heading text-xl font-bold text-stone-900">ชุดไทยจิตรลดา</h3>
+          <p class="text-stone-600 text-sm leading-relaxed">เสื้อคอกลมมีขอบตั้งเตี้ย แขนยาว ผ่าอกติดกระดุมหน้า นุ่งผ้าซิ่นยาวป้ายหน้า นิยมสำหรับงานพิธีกลางวันและชุดข้าราชการสตรี</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 border border-stone-200 space-y-3">
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-purple-100 text-purple-900">ขัตติยราชนารี · สไบ 2 ชั้น</span>
+          <h3 class="font-heading text-xl font-bold text-stone-900">ชุดไทยจักรพรรดิ</h3>
+          <p class="text-stone-600 text-sm leading-relaxed">ห่มสไบสองชั้น (สไบจีบพลีทชั้นใน และสไบปักดิ้นทองชั้นนอก) ประดับสังวาลย์ไขว้และศิราภรณ์ทองคำ วิจิตรอลังการสูงสุด</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. ETIQUETTE TAB -->
+    <section id="tab-etiquette" class="tab-content max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-semibold">🙏 บทเรียนที่ 4 : มารยาทและเอกลักษณ์ไทย</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-bold text-stone-900">มารยาทไทย ความอ่อนน้อมอันสง่างาม</h2>
+        <p class="text-stone-600 text-sm sm:text-base">คู่มือการไหว้ 3 ระดับ และการปฏิบัติตนอย่างสุภาพตามแบบแผนวัฒนธรรมไทย</p>
+      </div>
+
+      <!-- 3 Levels of Wai -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border-2 border-emerald-500 shadow-sm space-y-4">
+          <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center text-sm">1</div>
+          <h3 class="font-heading text-xl font-bold text-stone-900">ระดับที่ 1: พระรัตนตรัย</h3>
+          <p class="text-xs text-emerald-800 font-semibold">ไหว้พระพุทธ พระธรรม พระสงฆ์ และปูชนียสถาน</p>
+          <div class="bg-stone-50 p-4 rounded-xl text-xs space-y-2 text-stone-700">
+            <p><strong>ตำแหน่งมือ:</strong> ปลายนิ้วชี้จรดระหว่างคิ้ว, นิ้วหัวแม่มือจรดปลายคาง</p>
+            <p><strong>การก้ม:</strong> ก้มศีรษะและค้อมตัวลงมากที่สุด (ประมาณ 60 องศา)</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-stone-200 shadow-sm space-y-4">
+          <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-800 font-bold flex items-center justify-center text-sm">2</div>
+          <h3 class="font-heading text-xl font-bold text-stone-900">ระดับที่ 2: ผู้มีพระคุณ</h3>
+          <p class="text-xs text-amber-800 font-semibold">ไหว้บิดา มารดา ปู่ย่า ตายาย ครูอาจารย์</p>
+          <div class="bg-stone-50 p-4 rounded-xl text-xs space-y-2 text-stone-700">
+            <p><strong>ตำแหน่งมือ:</strong> ปลายนิ้วชี้จรดระหว่างคิ้ว, นิ้วหัวแม่มือจรดปลายจมูก</p>
+            <p><strong>การก้ม:</strong> ก้มศีรษะและค้อมตัวลงปานกลาง (ประมาณ 45 องศา)</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-stone-200 shadow-sm space-y-4">
+          <div class="w-10 h-10 rounded-full bg-sky-100 text-sky-800 font-bold flex items-center justify-center text-sm">3</div>
+          <h3 class="font-heading text-xl font-bold text-stone-900">ระดับที่ 3: บุคคลเสมอกัน</h3>
+          <p class="text-xs text-sky-800 font-semibold">ไหว้เพื่อน รุ่นพี่รุ่นน้องที่สนิท หรือบุคคลในวัยเดียวกัน</p>
+          <div class="bg-stone-50 p-4 rounded-xl text-xs space-y-2 text-stone-700">
+            <p><strong>ตำแหน่งมือ:</strong> ปลายนิ้วชี้จรดปลายจมูก, นิ้วหัวแม่มือจรดปลายคาง</p>
+            <p><strong>การก้ม:</strong> ก้มศีรษะลงเพียงเล็กน้อย หลังตรง สบตาคู่สนทนา</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Other Manners -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+        <div class="bg-stone-50 p-6 rounded-2xl border border-stone-200 space-y-2">
+          <h4 class="font-heading font-bold text-base text-stone-900">การกราบเบญจางคประดิษฐ์</h4>
+          <p class="text-stone-600 text-sm leading-relaxed">
+            การกราบด้วยอวัยวะทั้ง 5 จรดพื้น (หน้าผาก 1, มือ 2, เข่า 2) ผ่าน 3 จังหวะ: <strong>1. อัญชลี</strong> (ประนมมืออก) <strong>2. วันทา</strong> (ยกมือจรดหว่างคิ้ว) <strong>3. อภิวาท</strong> (ก้มกราบราบกับพื้น)
+          </p>
+        </div>
+        <div class="bg-stone-50 p-6 rounded-2xl border border-stone-200 space-y-2">
+          <h4 class="font-heading font-bold text-base text-stone-900">การเดินผ่านผู้ใหญ่</h4>
+          <p class="text-stone-600 text-sm leading-relaxed">
+            ค้อมลำตัวลงเล็กน้อย ปล่อยแขนแนบลำตัวหรือประสานมือไว้ข้างหน้า ก้าวเท้าอย่างสำรวมเพื่อแสดงความเกรงใจและอ่อนน้อมถ่อมตน
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. QUIZ TAB -->
+    <section id="tab-quiz" class="tab-content max-w-3xl mx-auto px-4 sm:px-6 space-y-8">
+      
+      <div class="text-center space-y-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-semibold">🏆 แบบทดสอบวัดความรู้</span>
+        <h2 class="font-heading text-3xl font-bold text-stone-900">แบบทดสอบ 5 ข้อ พร้อมเฉลยละเอียด</h2>
+        <p class="text-stone-600 text-sm">ตอบคำถามเพื่อทดสอบความรู้และรับเกียรติบัตรออนไลน์สำหรับแฟ้มสะสมงาน</p>
+      </div>
+
+      <!-- Quiz Box Container -->
+      <div id="quiz-container" class="bg-white rounded-3xl p-6 sm:p-10 border border-stone-200 shadow-md space-y-6">
+        
+        <!-- Question Header -->
+        <div class="flex items-center justify-between pb-4 border-b border-stone-100 text-xs font-semibold">
+          <span id="quiz-progress-text" class="text-amber-800">ข้อที่ 1 จาก 5</span>
+          <span id="quiz-current-score" class="text-stone-500">คะแนน: 0 / 5</span>
+        </div>
+
+        <!-- Question Text -->
+        <h3 id="quiz-question-title" class="font-heading text-lg sm:text-xl font-bold text-stone-900 leading-snug">
+          คำถามกำลังโหลด...
+        </h3>
+
+        <!-- Options Buttons -->
+        <div id="quiz-options-list" class="space-y-3">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Explanation Card -->
+        <div id="quiz-explanation-box" class="hidden p-5 rounded-2xl bg-amber-50 border border-amber-200 text-xs sm:text-sm space-y-2">
+          <strong id="quiz-feedback-title" class="font-heading text-amber-900 block font-bold">คำเฉลย:</strong>
+          <p id="quiz-explanation-text" class="text-stone-700"></p>
+        </div>
+
+        <!-- Next / Submit Button -->
+        <div id="quiz-action-bar" class="hidden flex justify-end pt-2">
+          <button onclick="nextQuestion()" id="quiz-next-btn" class="px-6 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-xl text-sm transition-all shadow-sm">
+            ข้อถัดไป →
+          </button>
+        </div>
+
+      </div>
+
+      <!-- RESULT & CERTIFICATE SCREEN (Hidden by default) -->
+      <div id="quiz-result-screen" class="hidden space-y-8">
+        
+        <div class="bg-white rounded-3xl p-8 sm:p-10 border border-stone-200 shadow-xl text-center space-y-6">
+          <div class="w-16 h-16 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mx-auto text-2xl font-bold">
+            🏆
+          </div>
+
+          <h3 class="font-heading text-2xl sm:text-3xl font-bold text-stone-900">ผลการทดสอบความรู้</h3>
+          <p id="result-feedback-desc" class="text-stone-600 text-sm max-w-md mx-auto"></p>
+
+          <div class="py-4 px-6 bg-stone-50 rounded-2xl max-w-xs mx-auto border border-stone-200">
+            <span id="result-score-number" class="text-4xl font-bold text-amber-700 font-heading block">0 / 5</span>
+            <span class="text-xs text-stone-400 mt-1 block">คะแนนความรอบรู้วัฒนธรรมไทย</span>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <button onclick="document.getElementById('certificate-modal').classList.remove('hidden')" class="px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-xl text-sm shadow-md transition-all">
+              📜 ดูและพิมพ์เกียรติบัตรออนไลน์
+            </button>
+            <button onclick="resetQuiz()" class="px-6 py-3 bg-stone-100 hover:bg-stone-200 text-stone-800 font-medium rounded-xl text-sm transition-all">
+              🔄 ทำแบบทดสอบใหม่
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CERTIFICATE MODAL -->
+      <div id="certificate-modal" class="hidden bg-white rounded-3xl p-6 sm:p-10 border-2 border-amber-300 shadow-2xl space-y-6">
+        
+        <div class="flex items-center justify-between pb-4 border-b border-stone-200">
+          <div>
+            <h4 class="font-heading font-bold text-stone-900 text-base">เกียรติบัตรการเรียนรู้วัฒนธรรมไทย</h4>
+            <p class="text-xs text-stone-500">กรอกชื่อเพื่อพิมพ์หรือบันทึกเป็น PDF</p>
+          </div>
+          <button onclick="window.print()" class="px-4 py-2 bg-stone-900 hover:bg-stone-800 text-white rounded-lg text-xs font-medium shadow-xs">
+            🖨️ พิมพ์เกียรติบัตร (Print / PDF)
+          </button>
+        </div>
+
+        <div class="max-w-xs mx-auto">
+          <label class="block text-xs font-semibold text-stone-700 mb-1">ระบุชื่อ - นามสกุลของคุณ:</label>
+          <input type="text" id="cert-student-name" oninput="updateCertName()" placeholder="เช่น นายวรภัทร รักภาษาไทย" class="w-full px-3 py-2 text-sm border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500">
+        </div>
+
+        <!-- Certificate Printable Sheet -->
+        <div id="certificate-printable-area" class="bg-[#fcfaf5] border-8 border-double border-amber-600/70 rounded-2xl p-8 sm:p-12 text-center relative shadow-inner">
+          <div class="space-y-4 max-w-xl mx-auto">
+            <span class="text-xs font-semibold text-amber-800 uppercase tracking-widest block">เกียรติบัตรฉบับนี้ให้ไว้เพื่อแสดงว่า</span>
+            <h2 id="cert-display-name" class="font-heading text-2xl sm:text-3xl font-bold text-amber-950 py-1 border-b border-amber-300/80 max-w-sm mx-auto">
+              นักเรียน / นักศึกษาผู้ใฝ่รู้
+            </h2>
+            <p class="text-stone-700 text-xs sm:text-sm leading-relaxed">
+              ได้ผ่านการทดสอบองค์ความรู้ด้านวัฒนธรรมไทย ประเพณี อาหาร การแต่งกาย และมารยาทไทย
+              <br>จากเว็บไซต์เพื่อการศึกษา <strong class="text-amber-900">"เสน่ห์วัฒนธรรมไทย"</strong>
+            </p>
+            <div class="py-1 px-4 inline-block bg-amber-100 rounded-lg text-xs font-bold text-amber-900" id="cert-display-score">
+              ผลการประเมิน: ได้คะแนน 5 จาก 5 คะแนน
+            </div>
+            <div class="pt-6 border-t border-amber-200 flex items-center justify-between text-xs text-stone-500">
+              <span id="cert-date">วันที่ทดสอบ: วันนี้</span>
+              <span class="font-semibold text-amber-950">ศูนย์การเรียนรู้เสน่ห์วัฒนธรรมไทย</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-stone-900 text-stone-400 border-t border-stone-800 py-10 px-4 text-center text-xs space-y-3">
+    <p class="font-heading text-sm font-bold text-white">เสน่ห์วัฒนธรรมไทย · สื่อการเรียนรู้ออนไลน์สำหรับเยาวชน</p>
+    <p>© 2026 เสน่ห์วัฒนธรรมไทย | ออกแบบสำหรับใช้เพื่อการศึกษาและการเรียนรู้</p>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // 1. Navigation switching
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      const activeEl = document.getElementById('tab-' + tabId);
+      if (activeEl) activeEl.classList.add('active');
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('bg-amber-100', 'text-amber-900', 'font-semibold');
+        btn.classList.add('text-stone-600', 'font-medium');
+      });
+
+      const activeBtn = document.getElementById('nav-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-stone-600', 'font-medium');
+        activeBtn.classList.add('bg-amber-100', 'text-amber-900', 'font-semibold');
+      }
+
+      document.getElementById('mobile-menu').classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // 2. Quiz Database & State
+    const quizQuestions = [
+      {
+        question: "ข้อใดอธิบาย 'การไหว้ระดับที่ 1' (ไหว้พระรัตนตรัย) ได้ถูกต้องตามหลักมารยาทไทย?",
+        options: [
+          "ปลายนิ้วชี้จรดระหว่างคิ้ว นิ้วหัวแม่มือจรดปลายคาง ก้มศีรษะและค้อมตัวลงมาก",
+          "ปลายนิ้วชี้จรดปลายจมูก นิ้วหัวแม่มือจรดปลายคาง ยืนตัวตรงไม่ก้มศีรษะ",
+          "ปลายนิ้วชี้จรดปลายคาง นิ้วหัวแม่มือจรดหน้าอก ก้มตัวเพียงเล็กน้อย",
+          "ประนมมือไว้ที่ระดับอกโดยไม่ต้องยกมือขึ้นจรดใบหน้า"
+        ],
+        correct: 0,
+        explanation: "การไหว้ระดับที่ 1 ใช้สำหรับไหว้พระพุทธ พระธรรม พระสงฆ์ ปลายนิ้วชี้จะจรดระหว่างคิ้ว นิ้วหัวแม่มือจรดปลายคาง พร้อมก้มศีรษะและค้อมตัวลงมากที่สุด"
+      },
+      {
+        question: "ประเพณีไทยใดที่ได้รับการขึ้นทะเบียนจาก UNESCO ให้เป็น 'มรดกภูมิปัญญาทางวัฒนธรรมที่จับต้องไม่ได้ของมนุษยชาติ' ในปี พ.ศ. 2566?",
+        options: [
+          "ประเพณีผีตาโขน ด่านซ้าย",
+          "ประเพณีสงกรานต์ในประเทศไทย (Songkran in Thailand)",
+          "ประเพณีบุญบั้งไฟ ยโสธร",
+          "ประเพณีวิ่งควาย จังหวัดชลบุรี"
+        ],
+        correct: 1,
+        explanation: "ยูเนสโก (UNESCO) ประกาศขึ้นทะเบียน 'สงกรานต์ในประเทศไทย' เป็นมรดกทางวัฒนธรรมที่จับต้องไม่ได้ของมนุษยชาติ เมื่อวันที่ 6 ธันวาคม 2566"
+      },
+      {
+        question: "อาหารไทยเมนูใดที่ได้รับการจัดอันดับโดย CNN Travel ให้เป็น 'อาหารที่อร่อยที่สุดในโลก' (World's Best Food)?",
+        options: [
+          "ต้มยำกุ้งน้ำข้น",
+          "ผัดไทยกุ้งสด",
+          "แกงมัสมั่น (Massaman Curry)",
+          "ส้มตำไทยไข่เค็ม"
+        ],
+        correct: 2,
+        explanation: "แกงมัสมั่น ได้รับการยกย่องจาก CNN Travel ให้เป็นอันดับ 1 ของโลก โดดเด่นด้วยกลิ่นหอมกรุ่นของเครื่องเทศลูกกระวาน กานพลู อบเชย ยี่หร่า และกะทิเข้มข้น"
+      },
+      {
+        question: "ชุดไทยพระราชนิยมแบบใดที่มีลักษณะเด่นคือ 'เปิดไหล่ข้างหนึ่ง ห่มสไบปักดิ้นทอง จีบหน้านางมีชายพก และคาดเข็มขัดทอง'?",
+        options: [
+          "ชุดไทยเรือนต้น",
+          "ชุดไทยจักรี",
+          "ชุดไทยจิตรลดา",
+          "ชุดไทยอมรินทร์"
+        ],
+        correct: 1,
+        explanation: "ชุดไทยจักรี เป็นชุดไทยสไบเฉียงเปิดไหล่หนึ่งข้าง สไบปักลวดลายวิจิตร ชายสไบกรอมพื้น ซิ่นยกทองจีบหน้านาง นิยมในพิธีมงคลสมรสและงานเลี้ยงค่ำ"
+      },
+      {
+        question: "จุดมุ่งหมายและแก่นแท้ทางวัฒนธรรมที่สำคัญที่สุดของประเพณี 'ลอยกระทง' คือข้อใด?",
+        options: [
+          "เพื่อการประกวดนางนพมาศและชิงเงินรางวัล",
+          "เพื่อขอขมาและรำลึกถึงพระคุณของพระแม่คงคา ที่ได้หล่อเลี้ยงชีวิตมวลมนุษย์",
+          "เพื่อความสนุกสนานในการจุดประทัดและดอกไม้ไฟยามค่ำคืน",
+          "เพื่อการค้าขายสินค้าและของที่ระลึกในงานวัด"
+        ],
+        correct: 1,
+        explanation: "แก่นแท้ของประเพณีลอยกระทงคือการแสดงความกตัญญูกตเวทิตาและขอขมาต่อพระแม่คงคา พร้อมทั้งตั้งจิตอธิษฐานปล่อยวางความทุกข์โศกไปกับสายน้ำ"
+      }
+    ];
+
+    let currentQIndex = 0;
+    let userScore = 0;
+    let hasAnswered = false;
+
+    function renderCurrentQuestion() {
+      const q = quizQuestions[currentQIndex];
+      hasAnswered = false;
+
+      document.getElementById('quiz-progress-text').innerText = `ข้อที่ ${currentQIndex + 1} จาก ${quizQuestions.length}`;
+      document.getElementById('quiz-current-score').innerText = `คะแนน: ${userScore} / ${quizQuestions.length}`;
+      document.getElementById('quiz-question-title').innerText = `${currentQIndex + 1}. ${q.question}`;
+
+      document.getElementById('quiz-explanation-box').classList.add('hidden');
+      document.getElementById('quiz-action-bar').classList.add('hidden');
+
+      const optionsContainer = document.getElementById('quiz-options-list');
+      optionsContainer.innerHTML = '';
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'w-full text-left p-4 rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-800 text-sm font-medium transition-all flex items-start gap-3 cursor-pointer';
+        btn.innerHTML = `<span class="w-6 h-6 rounded-full bg-white border border-stone-300 text-xs font-bold flex items-center justify-center shrink-0">${String.fromCharCode(65 + idx)}</span> <span>${opt}</span>`;
+        btn.onclick = () => selectQuizAnswer(idx);
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function selectQuizAnswer(selectedIndex) {
+      if (hasAnswered) return;
+      hasAnswered = true;
+
+      const q = quizQuestions[currentQIndex];
+      const isCorrect = selectedIndex === q.correct;
+      if (isCorrect) userScore++;
+
+      document.getElementById('quiz-current-score').innerText = `คะแนน: ${userScore} / ${quizQuestions.length}`;
+
+      const optionBtns = document.getElementById('quiz-options-list').children;
+      for (let i = 0; i < optionBtns.length; i++) {
+        optionBtns[i].disabled = true;
+        optionBtns[i].classList.remove('hover:bg-stone-100', 'cursor-pointer');
+        if (i === q.correct) {
+          optionBtns[i].className += ' bg-emerald-50 border-emerald-500 text-emerald-950 font-bold';
+        } else if (i === selectedIndex && !isCorrect) {
+          optionBtns[i].className += ' bg-rose-50 border-rose-400 text-rose-950';
+        } else {
+          optionBtns[i].className += ' opacity-50';
+        }
+      }
+
+      const expBox = document.getElementById('quiz-explanation-box');
+      expBox.classList.remove('hidden');
+      document.getElementById('quiz-feedback-title').innerText = isCorrect ? '✅ ตอบถูกต้องยอดเยี่ยม!' : '❌ ยังไม่ถูกต้อง (คำเฉลย):';
+      document.getElementById('quiz-explanation-text').innerText = q.explanation;
+
+      const actionBar = document.getElementById('quiz-action-bar');
+      actionBar.classList.remove('hidden');
+      document.getElementById('quiz-next-btn').innerText = (currentQIndex < quizQuestions.length - 1) ? 'ข้อถัดไป →' : 'ดูผลคะแนนรวม 🏆';
+    }
+
+    function nextQuestion() {
+      if (currentQIndex < quizQuestions.length - 1) {
+        currentQIndex++;
+        renderCurrentQuestion();
+      } else {
+        showQuizResults();
+      }
+    }
+
+    function showQuizResults() {
+      document.getElementById('quiz-container').classList.add('hidden');
+      document.getElementById('quiz-result-screen').classList.remove('hidden');
+
+      document.getElementById('result-score-number').innerText = `${userScore} / ${quizQuestions.length}`;
+      let desc = '';
+      if (userScore === 5) {
+        desc = 'ยอดเยี่ยมมาก! คุณคือสุดยอดผู้เชี่ยวชาญวัฒนธรรมไทย มีความรอบรู้ในมรดกภูมิปัญญาของชาติอย่างครบถ้วน';
+      } else if (userScore >= 3) {
+        desc = 'เก่งมาก! คุณมีความเข้าใจในประเพณี อาหาร และมารยาทไทยเป็นอย่างดี สามารถนำไปต่อยอดได้';
+      } else {
+        desc = 'เริ่มต้นได้ดี! ลองศึกษาบทเรียนในแต่ละหมวดหมู่เพิ่มเติม แล้วกลับมาทดสอบใหม่อีกครั้งนะ';
+      }
+      document.getElementById('result-feedback-desc').innerText = desc;
+      document.getElementById('cert-display-score').innerText = `ผลการประเมิน: ได้คะแนน ${userScore} จาก 5 คะแนน`;
+      document.getElementById('cert-date').innerText = 'วันที่ทดสอบ: ' + new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    function resetQuiz() {
+      currentQIndex = 0;
+      userScore = 0;
+      hasAnswered = false;
+      document.getElementById('quiz-result-screen').classList.add('hidden');
+      document.getElementById('certificate-modal').classList.add('hidden');
+      document.getElementById('quiz-container').classList.remove('hidden');
+      renderCurrentQuestion();
+    }
+
+    function updateCertName() {
+      const name = document.getElementById('cert-student-name').value;
+      document.getElementById('cert-display-name').innerText = name.trim() || 'นักเรียน / นักศึกษาผู้ใฝ่รู้';
+    }
+
+    // Initialize Quiz on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCurrentQuestion();
+    });
+  </script>
+
+</body>
+</html>

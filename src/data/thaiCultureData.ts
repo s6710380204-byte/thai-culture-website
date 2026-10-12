@@ -63,13 +63,19 @@ export interface QuizQuestion {
   learningFact: string;
 }
 
+import heroImg from '../assets/images/hero_thai_culture_grand_1791788099215.jpg';
+import songkranImg from '../assets/images/thai_tradition_songkran_1791788112971.jpg';
+import cuisineImg from '../assets/images/thai_cuisine_spread_1791788124238.jpg';
+import costumeImg from '../assets/images/thai_costume_chakkri_1791788137291.jpg';
+import waiImg from '../assets/images/thai_wai_etiquette_1791788148830.jpg';
+
 // ข้อมูลภาพประกอบที่สร้างขึ้น
 export const CULTURAL_IMAGES = {
-  hero: '/src/assets/images/hero_thai_culture_grand_1791788099215.jpg',
-  traditionSongkran: '/src/assets/images/thai_tradition_songkran_1791788112971.jpg',
-  cuisineSpread: '/src/assets/images/thai_cuisine_spread_1791788124238.jpg',
-  costumeChakkri: '/src/assets/images/thai_costume_chakkri_1791788137291.jpg',
-  waiEtiquette: '/src/assets/images/thai_wai_etiquette_1791788148830.jpg',
+  hero: heroImg,
+  traditionSongkran: songkranImg,
+  cuisineSpread: cuisineImg,
+  costumeChakkri: costumeImg,
+  waiEtiquette: waiImg,
 };
 
 // 1. หมวดประเพณีไทย
